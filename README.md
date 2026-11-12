@@ -200,3 +200,29 @@ This baseline contains no unit tests, test fixtures, browser checks, or
 verification. It should extend coverage around WAV chunk edge cases, timeline
 crossfade bounds, failed job cleanup, concurrent idempotency, and HTTP error
 mapping.
+
+## Online backup and recovery
+
+A running service keeps all media, timelines, jobs, outputs, and receipts in
+the one data directory above. A plain concurrent directory copy can observe a
+torn state because atomicity covers individual files/folders but not
+cross-file transactions, so "all expected paths exist" never proves a copy is
+restorable.
+
+The operational runbook, verifier, guarded restore tooling, and the isolated
+drills that back every claim live here:
+
+- [`docs/backup-recovery/RUNBOOK.md`](docs/backup-recovery/RUNBOOK.md) — online
+  no-downtime backup, verification rules, cutover criteria, and the handling of
+  in-flight jobs and unmeetable recovery points.
+- `cmd/backupverify` — `verify`, `manifest`, `check-manifest`, and a
+  refuse-to-overwrite `restore` (exit code 2 on blocking inconsistencies).
+- `cmd/backupdrill` and `ops/backup-recovery/run-drill.sh` — replayable, fully
+  isolated drills over the real HTTP handler; evidence is written to
+  `docs/backup-recovery/evidence/`.
+- `ops/backup-recovery/online-backup.sh` and
+  `ops/backup-recovery/isolated-restore.sh` — operational wrappers.
+
+The procedure never stops the service, never restores into a non-empty
+directory, never treats a job captured mid-progress as completed, and does not
+rely on any snapshot API that the service does not currently expose.

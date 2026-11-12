@@ -1,0 +1,17 @@
+== backupdrill start scenario=live-write time=2026-11-12T04:37:13Z workspace=/tmp/voice-backup-drill-2343201111 ==
+-- scenario live-write begin --
+seed: source live_base_src_0 digest=2af96546978d6c49d3285347aa67e7347393488bcad39a5ca4a5849914f775f2 frames=19200
+seed: render live_base_render_0 completed output_digest=dd86bce1f83f7acf17824a46a953fcc90af5bdc93feac4fed14f938a77411966
+seed: source live_base_src_1 digest=ee3754aeceb53258569faf6ca34a01c5e015671341e54f90ccd115c8ae2b00f0 frames=21600
+seed: render live_base_render_1 completed output_digest=d0c7f6f2f5cecf4d53a8f238f87da6aa01df680e851da48c523a5fd3183e8a69
+seed: source live_base_src_2 digest=308e2eca29c6b45b6313cdcb9f343d2822274b19b6c17fe631710019630cc728 frames=24000
+seed: render live_base_render_2 completed output_digest=9c9505fb5e994647caf073dc5b447b9e892826890415238775c62685bc172bd5
+live-write: service accepted all writes during the copy window (downtime observed: none)
+live-write: copy status=valid completed_in_copy=3 in_flight=0
+live-write: 9 renders completed on the live service; 3 were captured by the copy; missing=[live_new_render_4 live_new_render_0 live_new_render_1 live_new_render_2 live_new_render_3 live_new_render_5]
+live-write: deterministic torn window -> job live_torn_job_0 classified in-flight, copy still valid for closed history
+restore: /tmp/voice-backup-drill-2343201111/live/backup-copy -> /tmp/voice-backup-drill-2343201111/live/restored-data re-verified valid (in_flight=1)
+live-write: restored instance does not expose in-flight job live_torn_job_0 as completed (status=200 state=rendering)
+live-write: PASS — no downtime, restore promises only saved history, original live data untouched
+-- scenario live-write end --
+== backupdrill live-write PASSED ==

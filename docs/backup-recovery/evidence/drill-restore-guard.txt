@@ -1,0 +1,13 @@
+== backupdrill start scenario=restore-guard time=2026-11-12T04:37:14Z workspace=/tmp/voice-backup-drill-3242567796 ==
+-- scenario restore-guard begin --
+seed: source guard_src_0 digest=2af96546978d6c49d3285347aa67e7347393488bcad39a5ca4a5849914f775f2 frames=19200
+seed: render guard_render_0 completed output_digest=dd86bce1f83f7acf17824a46a953fcc90af5bdc93feac4fed14f938a77411966
+seed: source guard_src_1 digest=ee3754aeceb53258569faf6ca34a01c5e015671341e54f90ccd115c8ae2b00f0 frames=21600
+seed: render guard_render_1 completed output_digest=d0c7f6f2f5cecf4d53a8f238f87da6aa01df680e851da48c523a5fd3183e8a69
+seed: source guard_src_2 digest=308e2eca29c6b45b6313cdcb9f343d2822274b19b6c17fe631710019630cc728 frames=24000
+seed: render guard_render_2 completed output_digest=9c9505fb5e994647caf073dc5b447b9e892826890415238775c62685bc172bd5
+restore-guard: restore into non-empty target refused (refusing restore: target /tmp/voice-backup-drill-3242567796/guard/occupied-target exists and is not empty)
+restore-guard: existing file content unchanged after refused restore
+restore-guard: PASS — non-empty targets are protected, empty targets restore cleanly
+-- scenario restore-guard end --
+== backupdrill restore-guard PASSED ==
